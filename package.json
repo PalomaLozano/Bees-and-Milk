@@ -1,0 +1,29 @@
+{
+  "name": "javascript",
+  "version": "1.0.0",
+  "description": "tests",
+  "main": "index.js",
+  "directories": {
+    "test": "tests"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "index.html"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/PalomaLozano/bees-and-milk.git"
+  },
+  "keywords": [
+    "test"
+  ],
+  "author": "PalomaLozano",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/PalomaLozano/bees-and-milk/issues"
+  },
+  "homepage": "https://github.com/PalomaLozano/bees-and-milk#readme",
+  "devDependencies": {
+    "lite-server": "^2.6.1"
+  }
+}
