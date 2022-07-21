@@ -2,35 +2,66 @@ class Main {
   constructor() {
     this.products = [];
     this.min = 0;
-    this.max = 5;
+    this.max = 5000;
   }
 
   async init() {
-
     this.initListenerInput();
 
-    this.products = await fetch("https://api.imgflip.com/get_memes")
-      .then((data) => data.json()) 
-      .then((res) => res.data.memes);
-      console.log(this.products);
+    this.products = await fetch("https://dummyjson.com/products")
+      .then((data) => data.json())
+      .then((res) => res.products);
+    console.log(this.products);
     this.products.forEach((card) => {
       this.createCard(card);
     });
   }
 
-  initListenerInput(){
-    const min = document.querySelector('#inputMin');
-    const max = document.querySelector('#inputMax');
+  initListenerInput() {
+    const min = document.querySelector("#inputMin");
+    const max = document.querySelector("#inputMax");
 
-    min.addEventListener('change', function(ev){
-        console.log(ev.target.value);
+    min.addEventListener("change", (ev) => {
+      this.min = ev.target.value;
+      this.changeMinInputValue();
+      console.log(ev.target.value);
     });
 
-    max.addEventListener('change', function(ev){
-        console.log(ev.target.value);
+    max.addEventListener("change", (ev) => {
+      this.max = ev.target.value;
+      this.changeMaxInputValue();
+      console.log(ev.target.value);
     });
-
   }
+
+  cleanCard() {
+    const cards = document.querySelectorAll(".card");
+    cards.forEach(cardElement =>{
+      cardElement.remove();
+    })
+  }
+
+  changeMinInputValue() {
+    const filterProducts = this.products.filter(
+      (card) => card.price >= this.min && card.price <= this.max
+    );
+    this.cleanCard();
+    filterProducts.forEach(card=>{
+      this.createCard(card)
+    })
+  }
+
+  changeMaxInputValue() {
+    const filterProducts = this.products.filter(
+      (card) => card.price >= this.min && card.price <= this.max
+    );
+    this.cleanCard();
+    filterProducts.forEach(card=>{
+      this.createCard(card)
+    })
+  }
+
+  
 
   createCard(data) {
     const container = document.querySelector(
@@ -44,15 +75,19 @@ class Main {
     cardHeader.setAttribute("class", "card-header");
 
     const img = document.createElement("img");
-    img.setAttribute("src", data.url);
+    img.setAttribute("src", data.thumbnail);
 
     const cardFooter = document.createElement("div");
     cardFooter.setAttribute("class", "card-footer");
 
     const title = document.createElement("h4");
-    title.innerHTML = data.name;
+    title.innerHTML = data.title;
+
+    const price = document.createElement("h5");
+    price.innerHTML = data.price;
 
     cardFooter.appendChild(title);
+    cardFooter.appendChild(price);
     cardHeader.appendChild(img);
 
     card.appendChild(cardHeader);
